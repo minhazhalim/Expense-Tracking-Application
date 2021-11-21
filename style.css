@@ -32,7 +32,7 @@ h4 {
      margin: 0px;
      text-transform: uppercase;
 }
-.inc-exp-container {
+.income-expense-container {
      background-color: #fff;
      box-shadow: var(--box-shadow);
      margin: 20px 0px;
@@ -40,11 +40,11 @@ h4 {
      display: flex;
      justify-content: space-between;
 }
-.inc-exp-container > div {
+.income-expense-container div {
      flex: 1;
      text-align: center;
 }
-.inc-exp-container > div:first-of-type {
+.income-expense-container div:first-of-type {
      border-right: 1px solid #dedede;
 }
 .money {
