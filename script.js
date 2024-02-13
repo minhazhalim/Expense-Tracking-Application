@@ -7,27 +7,12 @@ const text = document.getElementById('text');
 const amount = document.getElementById('amount');
 const localStorageTransactions = JSON.parse(localStorage.getItem('transactions'));
 let transactions = localStorage.getItem('transactions') !== null ? localStorageTransactions : [];
-function addTransaction(event){
-     event.preventDefault();
-     if(text.value.trim() === '' || amount.value.trim() === ''){
-          alert('Please Add a Text and Amount');
-     }else{
-          const transaction = {
-               id: generateID(),
-               text: text.value,
-               amount: +amount.value,
-          };
-          transactions.push(transaction);
-          addTransactionDOM(transaction);
-          updateValues();
-          updateLocalStorage();
-          text.value = '';
-          amount.value = '';
-     }
-}
 form.addEventListener('submit',addTransaction);
 function generateID(){
      return Math.floor(Math.random() * 10000000);
+}
+function updateLocalStorage(){
+     localStorage.setItem('transactions',JSON.stringify(transactions));
 }
 function addTransactionDOM(transaction){
      const sign = transaction.amount < 0 ? '-' : '+';
@@ -48,13 +33,23 @@ function updateValues(){
      moneyPlus.innerText = `$${income}`;
      moneyMinus.innerText = `$${expense}`;
 }
-function removeTransaction(id){
-     transactions = transactions.filter(transaction => transaction.id !== id);
-     updateLocalStorage();
-     init();
-}
-function updateLocalStorage(){
-     localStorage.setItem('transactions',JSON.stringify(transactions));
+function addTransaction(event){
+     event.preventDefault();
+     if(text.value.trim() === '' || amount.value.trim() === ''){
+          alert('Please Add a Text and Amount');
+     }else{
+          const transaction = {
+               id: generateID(),
+               text: text.value,
+               amount: +amount.value,
+          };
+          transactions.push(transaction);
+          addTransactionDOM(transaction);
+          updateValues();
+          updateLocalStorage();
+          text.value = '';
+          amount.value = '';
+     }
 }
 function init(){
      unorderedList.innerHTML = "";
@@ -62,3 +57,8 @@ function init(){
      updateValues();
 }
 init();
+function removeTransaction(id){
+     transactions = transactions.filter(transaction => transaction.id !== id);
+     updateLocalStorage();
+     init();
+}
